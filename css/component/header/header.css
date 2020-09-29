@@ -1,0 +1,25 @@
+.header{
+    background-color: #e8e6e6;
+}
+
+.header__container{
+
+}
+
+.header__block{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: -15px;
+    margin-right: -15px;
+}
+
+.header__logo{
+    font-size: 20px;
+    font-weight: 700;
+    margin: 15px;
+}
+
+.header__auto{
+    margin: 15px;
+}

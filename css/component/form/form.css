@@ -1,0 +1,82 @@
+.form{
+
+}
+
+.form__container{
+
+}
+
+.form__paragraph{
+  display: flex;
+  justify-content: space-between;
+  margin: 50px;
+}
+
+.form__paragraph-item{
+  color: #000000;
+}
+
+.form__paragraph-item--ok{
+  color: #dadada;
+}
+
+.form__paragraph-item--active{
+  color: #3a65ff;
+}
+
+
+.form__required{
+  color: red;
+}
+
+.form__list{
+
+}
+
+.form__item{
+  display: none;
+}
+
+.form__item--active{
+  display: block;
+}
+
+.form__group{
+
+}
+
+.form__color{
+  width: 300px;
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -3px;
+  margin-right: -3px;
+}
+
+.form__color input{
+  display: none;
+}
+
+.form__color label{
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin: 3px;
+  display: block;
+  border: 1px #000000 solid;
+  cursor: pointer;
+}
+
+.form__color input:checked +  label{
+  border: 1px #b9b9b9 solid;
+}
+
+.form__field{
+
+}
+
+.form__field-name{
+  font-weight: bolder;
+  margin-bottom: 8px;
+  display: block;
+}
