@@ -1,0 +1,29 @@
+.not-found{
+
+}
+
+.not-found__container{
+
+}
+
+.not-found__h1{
+  font-size: 50px;
+  margin-bottom: 0;
+  text-align: center;
+}
+
+.not-found__p{
+  text-align: center;
+  font-size: 18px;
+  margin-top: 0;
+}
+
+.not-found__a{
+  background-color: #3f99ff;
+  padding: 7px 15px;
+  border-radius: 5px;
+  color: #fff;
+  text-decoration: blink;
+  display: table;
+  margin: 0 auto;
+}

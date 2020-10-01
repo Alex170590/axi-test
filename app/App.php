@@ -16,4 +16,32 @@ class App
     ];
 
     public $skills = ['усидчивость', 'опрятность', 'самообучаемость', 'трудолюбие'];
+
+    public $admin = [
+        'login' => 'admin',
+        'password' => '123456'
+    ];
+
+    public $token = '';
+
+    public function __construct()
+    {
+        $this->token = crypt($_SERVER['HTTP_USER_AGENT']);
+    }
+
+    public function filesConvert($files_result){
+        $result = [];
+        foreach ($files_result['name'] as $key_a => $val_a){
+            foreach ($files_result as $key_b => $val_b){
+                if(!is_array($val_b[$key_a])){
+                    $result[$key_a][$key_b] = $val_b[$key_a];
+                } else {
+                    foreach ($files_result['name'][$key_a] as $key_c => $val_c){
+                        $result[$key_a][$key_c][$key_b] = $val_b[$key_a][$key_c];
+                    }
+                }
+            }
+        }
+        return $result;
+    }
 }
