@@ -6,7 +6,7 @@ if(hash_equals($_POST['token'], crypt($_SERVER['HTTP_USER_AGENT'], $_POST['token
     $db = new Db();
     $files = $app->filesConvert($_FILES['param']);
 
-    $db->insert('axi_questionnaires', $_POST['param']);
+    $db->select('axi_questionnaires')->sort('id', 'desc')->result();
     echo '<pre>';
     print_r($_POST);
     echo '</pre>';

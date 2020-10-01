@@ -11,6 +11,8 @@ class Db
         "dbname" => "axi-test"
     );
 
+    private $select = [];
+
     public function __construct() {
         try{
             $this->mysqli = new mysqli($this->config['host'], $this->config['username'], $this->config['password'], $this->config['dbname']);
@@ -49,7 +51,65 @@ class Db
 
     public function select($table, $where = array())
     {
-        $result_mysqli = $this->mysqli->query("SELECT * FROM `".$table."`");
-        return $result_mysqli;
+        $this->select['table'] = $table;
+        $this->select['where'] = $where;
+        return $this;
+//        echo '<pre>';
+//        print_r($result_mysqli);
+//        echo '</pre>';
+//        return $result_mysqli;
+    }
+    
+    public function sort($key = '', $method = '')
+    {
+        $this->select['sort'] = [
+            'key' => $key,
+            'method' => $method
+        ];
+        return $this;
+    }
+
+    public function result()
+    {
+        $result_mysqli = $this->sql();
+        $result = array();
+        while ($row = $result_mysqli->fetch_assoc()){
+            $result[] = $row;
+        }
+        echo '<pre>';
+        print_r($result);
+        echo '</pre>';
+        return $result;
+    }
+
+    public function num_rows()
+    {
+        return $this->sql()->num_rows;
+    }
+
+    public function sql()
+    {
+        $sql = [];
+        $i = 0;
+        $sql[$i++] = "SELECT * FROM `".$this->select['table']."`";
+        if(count($this->select['where']) != 0){
+            $sql[$i++] = "WHERE";
+            $whire_array = [];
+            foreach ($this->select['where'] as $key => $val){
+                $whire_array[] = "`" .$key . "`=" . $val;
+            }
+            $sql[$i++] = implode(" AND ", $whire_array);
+        }
+        if(count($this->select['sort']) != 0){
+            $sort = $this->select['sort'];
+            $sql[$i++] = "ORDER BY";
+            if($sort['key'] != ''){
+                $sql[$i++] = "`".$sort['key']."`";
+                if($sort['method'] != ''){
+                    $sql[$i++] = $sort['method'];
+                }
+            }
+        }
+        return $this->mysqli->query(implode(" ", $sql));
     }
 }
