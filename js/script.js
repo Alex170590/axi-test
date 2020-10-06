@@ -63,9 +63,21 @@
             let field = item.querySelector('[name]');
             switch (field.type){
                 case 'text':
-                    if(field.value.length == 0){
-                        item.querySelector('.form__field-error').classList.add('form__field-error--active');
-                        error++;
+                    if(field.getAttribute('id') == 'data_birth'){
+                        if(field.value.length == 0){
+                            item.querySelector('.form__field-error--text').classList.add('form__field-error--active');
+                            error++;
+                        } else {
+                            if(!field.value.match(/(((0[1-9]|[12]\d|3[01])\.(0[13578]|1[02])\.((19|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\.(0[13456789]|1[012])\.((19|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\.02\.((19|[2-9]\d)\d{2}))|(29\.02\.((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$/)){
+                                item.querySelector('.form__field-error--birth').classList.add('form__field-error--active');
+                                error++;
+                            }
+                        }
+                    } else {
+                        if(field.value.length == 0){
+                            item.querySelector('.form__field-error').classList.add('form__field-error--active');
+                            error++;
+                        }
                     }
                     break;
                 case 'file':
@@ -90,7 +102,6 @@
                             file[n++] = "count";
                         }
                     }
-                    console.log(file);
                     if(file.length != 0){
                         for(let i = 0; i < file.length; i++){
                             item.querySelector('.form__field-error--'+file[i]).classList.add('form__field-error--active');

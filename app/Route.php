@@ -11,6 +11,33 @@ class Route
             'file' => 'home.php',
             'title' => 'Главная'
         ],
+        '/questionnaire-ok' => [
+            'file' => 'questionnaire-ok.php',
+            'title' => 'Анкетирование успешно'
+        ],
+        '/auth' => [
+            'file' => 'auth.php',
+            'title' => 'Вход',
+            'req' => 'Y',
+            'user' => "applicant"
+        ],
+        '/admin' => [
+            'file' => 'admin.php',
+            'title' => 'Админ панель',
+            'req' => 'Y',
+            'user' => "admin"
+        ],
+        '/admin/([0-9]+)' => [
+            'file' => 'admin.php',
+            'title' => 'Админ панель',
+            'req' => 'Y',
+            'user' => "admin"
+        ],
+        '/admin/page([0-9]+)' => [
+            'file' => 'admin-page.php',
+            'req' => 'Y',
+            'user' => "admin"
+        ],
     ];
 
     public static $title = '';
@@ -37,19 +64,34 @@ class Route
                     'file' => isset($option['file']) ? strtolower(trim($option['file'])) : '',
                     'title' => isset($option['title']) ? trim($option['title']) : '',
                     'params' => $match,
+                    'req' => isset($option['req']) ? trim($option['req']) : 'N',
+                    'user' => isset($option['user']) ? trim($option['user']) : '',
                 );
                 break;
             }
         }
-        if ($data === false) {
-            $option = $this->sitemap['404'];
-            $this->file = strtolower(trim($option['file']));
-            $this::$title = isset($option['title']) ? trim($option['title']) : '';
+        if($data['req'] == "N"){
+            if($data !== false){
+                $this->file = $data['file'];
+                $this::$title = $data['title'];
+                $this->params = $data['params'];
+            } else {
+                $option = $this->sitemap['404'];
+                $this->file = strtolower(trim($option['file']));
+                $this::$title = isset($option['title']) ? trim($option['title']) : '';
+            }
         } else {
-            $this->file = $data['file'];
-            $this::$title = $data['title'];
-            $this->params = $data['params'];
+            if($_SESSION['user'] == $data['user']){
+                $this->file = $data['file'];
+                $this::$title = $data['title'];
+                $this->params = $data['params'];
+            } else {
+                $option = $this->sitemap['404'];
+                $this->file = strtolower(trim($option['file']));
+                $this::$title = isset($option['title']) ? trim($option['title']) : '';
+            }
         }
+
         return $this->file;
     }
 }

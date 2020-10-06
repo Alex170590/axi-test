@@ -1,0 +1,42 @@
+.navigation{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.navigation a{
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: blink;
+}
+
+.navigation a:hover{
+  text-decoration: blink;
+  color: #0317ff;
+}
+
+.navigation__page{
+  color: #000;
+}
+
+.navigation__flowing{
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f52b00;
+}
+
+.navigation__prev{
+
+}
+
+.navigation__next{
+
+}

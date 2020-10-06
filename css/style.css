@@ -2,3 +2,7 @@
 @import "component/header/header.css";
 @import "component/form/form.css";
 @import "component/not-found/not-found.css";
+@import "component/list/list.css";
+@import "component/table/table.css";
+@import "component/navigation/navigation.css";
+@import "component/page/page.css";

@@ -13,23 +13,13 @@ $app = new App();
 </head>
 <body>
 
-<section class="header">
-    <div class="container header__container">
-        <div class="header__block">
-            <div class="header__logo">
-                Анкетирование
-            </div>
-            <div class="header__auto">
-                <a href="/auto.php">Вход</a>
-            </div>
-        </div>
-    </div>
-</section>
+<?php include "include/header.php"?>
 
 <section class="form">
-    <div class="container form__container">
+    <div class="container form__container mb-50">
         <form action="/action/action.php" method="post" enctype="multipart/form-data" class="form__action">
             <input type="hidden" name="token" value="<?=$app->token?>">
+            <input type="hidden" name="action_type" value="questionnaire">
             <div class="form__paragraph">
                 <div class="form__paragraph-item form__paragraph-item--active">Шаг 1</div>
                 <div class="form__paragraph-item">Шаг 2</div>
@@ -41,11 +31,11 @@ $app = new App();
                     <div class="form__group mb-15">
                         <div class="form__field-name">Выбор пола <span class="form__required">*</span></div>
                         <div class="form__field">
-                            <input id="male" type="radio" checked name="param[gender]" value="мужской">
+                            <input id="male" type="radio" checked name="param[gender]" value="Мужской">
                             <label for="male">мужской</label>
                         </div>
                         <div class="form__field">
-                            <input id="female" type="radio" name="param[gender]" value="женский">
+                            <input id="female" type="radio" name="param[gender]" value="Женский">
                             <label for="female">женский</label>
                         </div>
                     </div>
@@ -66,9 +56,12 @@ $app = new App();
                     </div>
                     <div class="form__field form__field--required mb-15">
                         <label for="data_birth" class="form__field-name">Дата рождения <span class="form__required">*</span></label>
-                        <input required id="data_birth" type="text" name="param[data_birth]" value="">
-                        <div class="form__field-error">
+                        <input required id="data_birth" type="text" name="param[data_birth]" value="" placeholder="Пример: дд.мм.гггг">
+                        <div class="form__field-error form__field-error--text">
                             <span>Введите дату рождения</span>
+                        </div>
+                        <div class="form__field-error form__field-error--birth">
+                            <span>Не верно введина дата</span>
                         </div>
                     </div>
                     <div class="form__nav">
@@ -78,7 +71,7 @@ $app = new App();
                 <div class="form__item">
                     <div class="form__field form__field--required mb-15">
                         <label for="avatar" class="form__field-name">Загрузка аватарки</label>
-                        <input id="avatar" type="file" data-max-weight="100" name="param[avatar]" value="">
+                        <input id="avatar" type="file" data-max-weight="100" name="param[avatar]" value="" accept=".png, .jpg, .jpeg">
                         <div class="form__field-error form__field-error--weight">
                             <span>Не более 100 Кб</span>
                         </div>
@@ -121,7 +114,7 @@ $app = new App();
                 <div class="form__item">
                     <div class="form__field form__field--required mb-15">
                         <label for="photo" class="form__field-name">Загрузка фотографий</label>
-                        <input id="photo" multiple type="file" data-max-weight="1024" data-max-count="5" name="param[photo][]" value="">
+                        <input id="photo" multiple type="file" data-max-weight="1024" data-max-count="5" name="param[photo][]" value="" accept=".png, .jpg, .jpeg">
                         <div class="form__field-error form__field-error--weight">
                             <span>Не более 1 Мб фото</span>
                         </div>

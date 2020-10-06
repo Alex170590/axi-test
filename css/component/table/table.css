@@ -1,0 +1,30 @@
+.table{
+  width: 100%;
+}
+.table thead{
+
+}
+.table th,
+.table td{
+  text-align: left;
+  padding: 10px;
+  display: table-cell;
+}
+.table th{
+  border-bottom: 2px #a9a9a9 solid;
+}
+
+.table form{
+  margin-bottom: 0;
+}
+
+.table [type="submit"]{
+  border: 0;
+  background: none;
+  font: unset;
+  cursor: pointer;
+}
+
+.table [type="submit"]:focus{
+  outline: 0;
+}

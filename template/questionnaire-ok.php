@@ -1,6 +1,7 @@
 <?php
-header("HTTP/1.0 404 Not Found");
+$app = new App();
 ?>
+
 <html>
 <head>
     <title><?=Route::$title?></title>
@@ -14,11 +15,9 @@ header("HTTP/1.0 404 Not Found");
 
 <?php include "include/header.php"?>
 
-<section class="not-found">
-    <div class="container not-found__container">
-        <h1 class="not-found__h1">404</h1>
-        <p class="not-found__p">Документ не найден</p>
-        <a href="/" class="not-found__a">Главная</a>
+<section class="form">
+    <div class="container form__container mt-50">
+        <p>Анкета успешно отправлена!</p>
     </div>
 </section>
 

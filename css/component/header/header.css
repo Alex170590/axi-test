@@ -20,6 +20,11 @@
     margin: 15px;
 }
 
+.header__logo a{
+    color: #000000;
+    text-decoration: blink;
+}
+
 .header__auto{
     margin: 15px;
 }

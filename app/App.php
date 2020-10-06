@@ -2,6 +2,11 @@
 
 class App
 {
+    public $admin = [
+        'login' => 'admin',
+        'password' => 'admin'
+    ];
+
     public $color = [
         ['name' => 'Черный', 'hex' => '#000000'],
         ['name' => 'Серебряный', 'hex' => '#C0C0C0'],
@@ -17,16 +22,19 @@ class App
 
     public $skills = ['усидчивость', 'опрятность', 'самообучаемость', 'трудолюбие'];
 
-    public $admin = [
-        'login' => 'admin',
-        'password' => '123456'
-    ];
-
     public $token = '';
 
     public function __construct()
     {
         $this->token = crypt($_SERVER['HTTP_USER_AGENT']);
+    }
+
+    public function noPage()
+    {
+        $db = new Db();
+        if($db->select('axi_questionnaires', ['id' => (new Route())->params[1]])->num_rows() == 0){
+            header('Location: /404', true, '301');
+        }
     }
 
     public function filesConvert($files_result){
@@ -43,5 +51,12 @@ class App
             }
         }
         return $result;
+    }
+
+    public function filterDbDate($date)
+    {
+        $date = explode(" ", $date);
+        $date = explode("-", $date[0]);
+        return $date[2] . '.' . $date[1] . '.' . $date[0];
     }
 }

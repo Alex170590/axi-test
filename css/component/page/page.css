@@ -1,0 +1,40 @@
+.page{
+
+}
+
+.page__h1{
+
+}
+
+.page__container{
+
+}
+
+.page__meta{
+  margin-bottom: 20px;
+}
+
+.page__meta-title{
+  font-weight: bolder;
+  margin-bottom: 5px;
+}
+
+.page__meta-text{
+
+}
+
+.page__meta-photo{
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -10px;
+  margin-right: -10px;
+}
+
+.page__meta-photo a{
+  width: calc(100% / 3 - 20px);
+  margin: 10px;
+}
+
+.page__meta-photo a img{
+  width: 100%;
+}

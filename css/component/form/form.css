@@ -56,6 +56,10 @@
   display: block;
 }
 
+.form__block-error{
+  color: #f00;
+}
+
 .form__color{
   width: 300px;
   display: flex;
@@ -127,7 +131,12 @@
   float: right;
   border: 0;
   cursor: pointer;
+
 }
 .form__nav-button:focus{
   outline: 0;
+}
+
+.form__nav-button--float-left{
+  float: left;
 }

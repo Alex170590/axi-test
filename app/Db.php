@@ -26,7 +26,7 @@ class Db
 
     }
 
-    public function insert($table, $params = array())
+    public function insert($table, $params = [])
     {
 
         if(count($params) != 0){
@@ -49,15 +49,11 @@ class Db
         }
     }
 
-    public function select($table, $where = array())
+    public function select($table, $where = [])
     {
         $this->select['table'] = $table;
         $this->select['where'] = $where;
         return $this;
-//        echo '<pre>';
-//        print_r($result_mysqli);
-//        echo '</pre>';
-//        return $result_mysqli;
     }
     
     public function sort($key = '', $method = '')
@@ -69,17 +65,36 @@ class Db
         return $this;
     }
 
-    public function result()
+    public function limit($num)
+    {
+        $this->select['limit'] = $num;
+        return $this;
+    }
+
+    public function offset($num)
+    {
+        $this->select['offset'] = $num;
+        return $this;
+    }
+
+    public function result($n = -1)
     {
         $result_mysqli = $this->sql();
         $result = array();
-        while ($row = $result_mysqli->fetch_assoc()){
-            $result[] = $row;
+        if($result_mysqli->num_rows != 0){
+            while($row = $result_mysqli->fetch_assoc()){
+                $element = [];
+                foreach ($row as $key => $val){
+                    if(((is_string($val) && (is_object(json_decode($val)) || is_array(json_decode($val)))))){
+                        $element[$key] = json_decode($val);
+                    } else {
+                        $element[$key] = $val;
+                    }
+                }
+                $result[] = $element;
+            }
         }
-        echo '<pre>';
-        print_r($result);
-        echo '</pre>';
-        return $result;
+        return ($n == -1 || $n < 0) ? $result : $result[$n];
     }
 
     public function num_rows()
@@ -96,11 +111,16 @@ class Db
             $sql[$i++] = "WHERE";
             $whire_array = [];
             foreach ($this->select['where'] as $key => $val){
-                $whire_array[] = "`" .$key . "`=" . $val;
+                $key = explode(".", $key);
+                if(!empty($key[1]) && $key[1] == 'json'){
+                    $whire_array[] = "`" .$key[0] . "` LIKE '%" . $val . "%'";
+                } else {
+                    $whire_array[] = "`" .$key[0] . "` = '" . $val . "'";
+                }
             }
             $sql[$i++] = implode(" AND ", $whire_array);
         }
-        if(count($this->select['sort']) != 0){
+        if($this->select['sort']['key'] != '' && $this->select['sort']['method'] != ''){
             $sort = $this->select['sort'];
             $sql[$i++] = "ORDER BY";
             if($sort['key'] != ''){
@@ -110,6 +130,16 @@ class Db
                 }
             }
         }
+        if($this->select['limit'] != ''){
+            $sql[$i++] = "LIMIT " . $this->select['limit'];
+        }
+        if($this->select['offset'] != ''){
+            $sql[$i++] = "OFFSET " . $this->select['offset'];
+        }
         return $this->mysqli->query(implode(" ", $sql));
     }
+//
+//    public function isJSON($string) {
+//        return  ? true : false;
+//    }
 }
