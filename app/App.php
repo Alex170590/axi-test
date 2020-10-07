@@ -29,14 +29,6 @@ class App
         $this->token = crypt($_SERVER['HTTP_USER_AGENT']);
     }
 
-    public function noPage()
-    {
-        $db = new Db();
-        if($db->select('axi_questionnaires', ['id' => (new Route())->params[1]])->num_rows() == 0){
-            header('Location: /404', true, '301');
-        }
-    }
-
     public function filesConvert($files_result){
         $result = [];
         foreach ($files_result['name'] as $key_a => $val_a){

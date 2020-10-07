@@ -1,9 +1,7 @@
 <?php
 $app = new App();
 $db = new Db();
-$app->noPage();
 $page = $db->select('axi_questionnaires', ['id' => (new Route())->params[1]])->result(0);
-//if()
 ?>
 
 <html>
